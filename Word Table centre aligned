@@ -1,0 +1,15 @@
+Sub CenterAlignTables()
+    Dim tbl As Table
+    
+    ' Loop through each table in the document
+    For Each tbl In ActiveDocument.Tables
+        ' Center align the table by setting the alignment property
+        tbl.Range.ParagraphFormat.Alignment = wdAlignParagraphCenter
+        ' Center align the table within the page
+        tbl.Range.ParagraphFormat.Alignment = wdAlignParagraphCenter
+        tbl.Rows.Alignment = wdAlignRowCenter
+    Next tbl
+    
+    ' Inform the user that the process is complete
+    MsgBox "All tables have been center-aligned.", vbInformation
+End Sub

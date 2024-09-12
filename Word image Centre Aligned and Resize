@@ -1,0 +1,35 @@
+Sub CenterAlignAndResizeImages()
+    Dim shp As InlineShape
+    Dim doc As Document
+    Dim pageWidth As Single
+    Dim pageHeight As Single
+    
+    ' Get the active document
+    Set doc = ActiveDocument
+    
+    ' Get the page width and height (in points)
+    With doc.PageSetup
+        pageWidth = .pageWidth
+        pageHeight = .pageHeight
+    End With
+    
+    ' Loop through each InlineShape in the document
+    For Each shp In doc.InlineShapes
+        ' Center align the image
+        shp.Range.ParagraphFormat.Alignment = wdAlignParagraphCenter
+        
+        ' Resize the image to fit the page width while maintaining aspect ratio
+        With shp
+            ' Resize image width to page width minus margins
+            .LockAspectRatio = True
+            .Width = pageWidth - doc.PageSetup.LeftMargin - doc.PageSetup.RightMargin
+            
+            ' Optional: Adjust height if needed, otherwise it will adjust automatically
+            ' .Height = pageHeight - doc.PageSetup.TopMargin - doc.PageSetup.BottomMargin
+        End With
+    Next shp
+    
+    ' Inform the user that the process is complete
+    MsgBox "All images have been center-aligned and resized to fit the page width.", vbInformation
+End Sub
+
